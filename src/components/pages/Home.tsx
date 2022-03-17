@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import '../../styles/components/home/homepage.styles.scss';
+import { Catergory } from '../../types/Directory';
+import SectionData from '../../utils/DirectoryData';
 import Directory from '../molecules/Directory';
 
 const Home: React.FC = () => {
+    const categories: Array<Catergory> = useMemo(() => SectionData, [SectionData]);
+
     return (
-        <div className="homepage">
-            <Directory></Directory>
-        </div>
+        <>
+            <Outlet />
+            <Directory categories={categories} />
+        </>
     );
 };
 

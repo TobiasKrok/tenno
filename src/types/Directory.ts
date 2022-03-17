@@ -1,7 +1,5 @@
-export type Section = {
+export type Catergory = {
     title: string;
     imageUrl: string;
-    size?: 'large' | 'medium' | 'small';
     id: number;
-    linkUrl: string;
 };

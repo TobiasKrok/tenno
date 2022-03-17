@@ -1,22 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles/components/directory/directory.scss';
-import { Section } from '../../types/Directory';
-import SectionData from '../../utils/DirectoryData';
-import MenuItem from '../atoms/MenuItem';
+import { Catergory } from '../../types/Directory';
+import CategoryItem from '../atoms/CategoryItem';
 
-const Directory: React.FC = () => {
-    const [sections, setSections] = useState<Array<Section>>(SectionData); // useState not really needed here
-
+type DirectoryProps = {
+    categories: Array<Catergory>;
+};
+const Directory: React.FC<DirectoryProps> = ({ categories }) => {
     return (
-        <div className="directory-menu">
-            {sections.map((section) => (
-                <MenuItem
-                    key={section.id}
-                    title={section.title}
-                    imageUrl={section.imageUrl}
-                    linkUrl={section.linkUrl}
-                    size={section.size}
-                />
+        <div className="directory-container">
+            {categories.map((category) => (
+                <CategoryItem key={category.id} title={category.title} imageUrl={category.imageUrl} />
             ))}
         </div>
     );
