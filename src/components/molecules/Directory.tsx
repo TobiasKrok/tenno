@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../styles/components/directory/directory.scss';
-import { Catergory } from '../../types/Directory';
+import { Category } from '../../types/Directory';
 import CategoryItem from '../atoms/CategoryItem';
 
 type DirectoryProps = {
-    categories: Array<Catergory>;
+    categories: Array<Category>;
 };
 const Directory: React.FC<DirectoryProps> = ({ categories }) => {
     return (

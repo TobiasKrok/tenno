@@ -1,8 +1,8 @@
 // Dummy object for getting section data for Directory
 
-import { Catergory } from '../types/Directory';
+import { Category } from '../types/Directory';
 
-const CategoryData: Array<Catergory> = [
+const CategoryData: Array<Category> = [
     {
         id: 1,
         title: 'hats',

@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../styles/components/category-item/category-item.scss';
-import { Catergory } from '../../types/Directory';
+import { Category } from '../../types/Directory';
 
-const CategoryItem: React.FC<Omit<Catergory, 'id'>> = ({ title, imageUrl }) => {
+const CategoryItem: React.FC<Omit<Category, 'id'>> = ({ title, imageUrl }) => {
     return (
         <div className="category-container">
             <div
