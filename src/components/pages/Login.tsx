@@ -1,15 +1,11 @@
 import React from 'react';
-import { signInWithGooglePopup, createUserDocument } from '../../utils/firebase';
-import SignUpForm from '../molecules/SignUpForm';
+import LoginForm from '../organisms/LoginForm';
+import SignUpForm from '../organisms/SignUpForm';
+import '../../styles/components/login-page/login-page.scss';
 const Login = () => {
-    const loginGoogle = async () => {
-        const response = await signInWithGooglePopup();
-    };
-
     return (
-        <div>
-            <h1>Sign in</h1>
-            <button onClick={loginGoogle}>Sign in Popup</button>
+        <div className="container">
+            <LoginForm />
             <SignUpForm />
         </div>
     );

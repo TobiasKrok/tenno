@@ -6,6 +6,7 @@ import {
     GoogleAuthProvider,
     UserCredential,
     createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import { FireBaseConfig, SignUpFields } from '../types/auth';
@@ -31,10 +32,12 @@ provider.setCustomParameters({
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
+export const loginEmailPassword = async (email: string, password: string) =>
+    signInWithEmailAndPassword(auth, email, password);
 
 export const db = getFirestore();
 
-export const createUserDocument = async (credential: UserCredential, additional: Record<string, unknown>) => {
+export const createUserDocument = async (credential: UserCredential, additional?: Record<string, unknown>) => {
     const userDocRef = doc(db, 'users', credential.user.uid);
 
     const userSnapshot = await getDoc(userDocRef);

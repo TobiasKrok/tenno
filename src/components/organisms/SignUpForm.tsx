@@ -4,6 +4,8 @@ import { createAuthUser, createUserDocument } from '../../utils/firebase';
 import FormInput from '../atoms/FormInput';
 import '../../styles/components/sign-up-form/sign-up-form.scss';
 import Button from '../atoms/Button';
+import errorMessageMapper from '../../utils/errorMessageMapper';
+import { FirebaseError } from 'firebase/app';
 
 const SignUpForm: React.FC = () => {
     const [formFields, setFormFields] = useState<SignUpFields>({
@@ -28,8 +30,14 @@ const SignUpForm: React.FC = () => {
         try {
             const authRes = await createAuthUser(formFields);
             await createUserDocument(authRes, { displayName: formFields.displayName });
+            setFormFields({
+                displayName: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+            });
         } catch (error) {
-            setError((error as Error).message);
+            setError(errorMessageMapper(error as FirebaseError));
         }
     };
 
@@ -40,39 +48,53 @@ const SignUpForm: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 <FormInput
                     label="Display Name"
-                    required
-                    onChange={handleChange}
-                    name="displayName"
-                    value={formFields.displayName}
+                    inputProps={{
+                        required: true,
+                        onChange: handleChange,
+                        name: 'displayName',
+                        value: formFields.displayName,
+                    }}
                 />
 
                 <FormInput
-                    type="email"
-                    required
-                    onChange={handleChange}
-                    name="email"
-                    value={formFields.email}
                     label="Email"
+                    inputProps={{
+                        required: true,
+                        onChange: handleChange,
+                        name: 'email',
+                        value: formFields.email,
+                        type: 'email',
+                    }}
                 />
 
                 <FormInput
-                    type="password"
+                    inputProps={{
+                        required: true,
+                        onChange: handleChange,
+                        name: 'password',
+                        value: formFields.password,
+                        type: 'password',
+                    }}
                     label="Password"
-                    required
-                    onChange={handleChange}
-                    name="password"
-                    value={formFields.password}
                 />
                 <FormInput
-                    type="password"
+                    inputProps={{
+                        required: true,
+                        onChange: handleChange,
+                        name: 'confirmPassword',
+                        value: formFields.confirmPassword,
+                        type: 'password',
+                    }}
                     label="Confirm password"
-                    required
-                    onChange={handleChange}
-                    name="confirmPassword"
-                    value={formFields.confirmPassword}
                 />
 
-                <Button type="submit"> SIGN UP</Button>
+                <Button
+                    buttonProps={{
+                        type: 'submit',
+                    }}
+                >
+                    SIGN UP
+                </Button>
                 <p style={{ color: 'red' }}>{error}</p>
             </form>
         </div>
