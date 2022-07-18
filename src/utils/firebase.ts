@@ -4,9 +4,11 @@ import {
     signInWithRedirect,
     signInWithPopup,
     GoogleAuthProvider,
-    UserCredential,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    User,
 } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import { FireBaseConfig, SignUpFields } from '../types/auth';
@@ -37,8 +39,8 @@ export const loginEmailPassword = async (email: string, password: string) =>
 
 export const db = getFirestore();
 
-export const createUserDocument = async (credential: UserCredential, additional?: Record<string, unknown>) => {
-    const userDocRef = doc(db, 'users', credential.user.uid);
+export const createUserDocument = async (user: User, additional?: Record<string, unknown>) => {
+    const userDocRef = doc(db, 'users', user.uid);
 
     const userSnapshot = await getDoc(userDocRef);
 
@@ -46,7 +48,7 @@ export const createUserDocument = async (credential: UserCredential, additional?
         return userDocRef;
     }
 
-    const { displayName, email } = credential.user;
+    const { displayName, email } = user;
     const createdAt = new Date();
     try {
         await setDoc(userDocRef, {
@@ -60,5 +62,9 @@ export const createUserDocument = async (credential: UserCredential, additional?
     }
 };
 
+export const signOutUser = async () => await signOut(auth);
+
 export const createAuthUser = async (credentials: SignUpFields) =>
     await createUserWithEmailAndPassword(auth, credentials.email, credentials.password);
+
+export const onAuthStateChangedListener = (callback: (user: User | null) => void) => onAuthStateChanged(auth, callback);

@@ -15,6 +15,7 @@ const SignUpForm: React.FC = () => {
         confirmPassword: '',
     });
     const [error, setError] = useState<string | null>(null);
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
@@ -29,7 +30,7 @@ const SignUpForm: React.FC = () => {
         }
         try {
             const authRes = await createAuthUser(formFields);
-            await createUserDocument(authRes, { displayName: formFields.displayName });
+            await createUserDocument(authRes.user, { displayName: formFields.displayName });
             setFormFields({
                 displayName: '',
                 email: '',

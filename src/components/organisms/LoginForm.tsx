@@ -9,7 +9,6 @@ import errorMessageMapper from '../../utils/errorMessageMapper';
 const LoginForm: React.FC = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [error, setError] = useState<string | null>(null);
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setCredentials({ ...credentials, [name]: value });
@@ -19,7 +18,7 @@ const LoginForm: React.FC = () => {
         event.preventDefault();
         try {
             setError(null);
-            const user = await loginEmailPassword(credentials.email, credentials.password);
+            await loginEmailPassword(credentials.email, credentials.password);
             setCredentials({ email: '', password: '' });
         } catch (error) {
             setError(errorMessageMapper(error as FirebaseError));
@@ -28,8 +27,7 @@ const LoginForm: React.FC = () => {
 
     const loginGoogle = async () => {
         try {
-            const response = await signInWithGooglePopup();
-            createUserDocument(response);
+            await signInWithGooglePopup();
             setCredentials({ email: '', password: '' });
         } catch (error) {
             setError(errorMessageMapper(error as FirebaseError));
