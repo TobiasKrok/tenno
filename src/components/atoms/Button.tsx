@@ -1,4 +1,4 @@
-import React, { ComponentType, PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import '../../styles/components/button/button.scss';
 const BUTTON_TYPE = {
     google: 'google-sign-in',
@@ -7,7 +7,7 @@ const BUTTON_TYPE = {
 
 type ButtonProps = {
     class?: keyof typeof BUTTON_TYPE;
-    buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement>;
+    buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 };
 const Button: React.FC<PropsWithChildren<ButtonProps>> = (props) => {
     return (
