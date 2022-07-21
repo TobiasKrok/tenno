@@ -1,22 +1,41 @@
-import React, { createContext, PropsWithChildren, useState } from 'react';
-import { Product } from '../types/products';
+import React, { createContext, PropsWithChildren, useEffect, useState } from 'react';
+import { AddedProduct, Product } from '../types/products';
 
 type CartState = {
-    cart: Product[];
+    cart: AddedProduct[];
+    totalCount: number;
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    setCart: React.Dispatch<React.SetStateAction<Product[]>>;
+    addProduct: (product: Product) => void;
 };
 export const CartContext = createContext<CartState>({
     visible: false,
+    totalCount: 0,
     cart: [],
     setVisible: () => null,
-    setCart: () => null,
+    addProduct: () => null,
 });
 
 export const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [visible, setVisible] = useState(false);
-    const [cart, setCart] = useState<Product[]>([]);
+    const [cart, setCart] = useState<AddedProduct[]>([]);
+    const [totalCount, setTotalCount] = useState(0);
 
-    return <CartContext.Provider value={{ visible, setVisible, cart, setCart }}>{children}</CartContext.Provider>;
+    useEffect(() => setTotalCount(cart.reduce((acc, cur) => acc + cur.quantity, 0)), [cart]);
+
+    const addProduct = (product: Product) => {
+        const item = cart.find((item) => item.id === product.id);
+
+        if (!item) {
+            setCart((c) => [...c, { ...product, quantity: 1 }]);
+        } else {
+            setCart((c) => c.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)));
+        }
+    };
+
+    return (
+        <CartContext.Provider value={{ visible, setVisible, cart, addProduct, totalCount }}>
+            {children}
+        </CartContext.Provider>
+    );
 };

@@ -6,7 +6,7 @@ import { UserContext } from '../../contexts/UserContext';
 import '../../styles/components/navigation/navigation.scss';
 import { signOutUser } from '../../utils/firebase';
 import CartIcon from '../atoms/CartIcon';
-import CartDropdown from './CartDropdown';
+import CartDropdown from '../molecules/CartDropdown';
 const Navigation: React.FC = () => {
     const { currentUser } = useContext(UserContext);
     const { visible } = useContext(CartContext);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../atoms/Button';
 import FormInput from '../atoms/FormInput';
 import '../../styles/components/login-form/login-form.scss';
-import { createUserDocument, loginEmailPassword, signInWithGooglePopup } from '../../utils/firebase';
+import { loginEmailPassword, signInWithGooglePopup } from '../../utils/firebase';
 import { FirebaseError } from 'firebase/app';
 import errorMessageMapper from '../../utils/errorMessageMapper';
 
