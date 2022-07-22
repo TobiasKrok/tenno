@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import '../../styles/components/home/homepage.styles.scss';
 import { Category } from '../../types/Directory';
 import SectionData from '../../utils/directory';
-import Directory from '../molecules/Directory';
+import Directory from '../organisms/Directory';
 
 const Home: React.FC = () => {
     const categories: Array<Category> = useMemo(() => SectionData, [SectionData]);
