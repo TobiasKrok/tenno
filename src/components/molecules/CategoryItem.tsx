@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../styles/components/category-item/category-item.scss';
-import { Category } from '../../types/Directory';
+import { Category } from '../../types/categories';
 
 const CategoryItem: React.FC<Omit<Category, 'id'>> = ({ title, imageUrl }) => {
     return (
-        <div className="category-container">
+        <div className="category-item-container">
             <div
                 className="background-image"
                 style={{

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/components/directory/directory.scss';
-import { Category } from '../../types/Directory';
+import { Category } from '../../types/categories';
 import CategoryItem from '../molecules/CategoryItem';
 
 type DirectoryProps = {

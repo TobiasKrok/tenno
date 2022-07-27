@@ -1,6 +1,6 @@
 // Dummy object for getting section data for Directory
 
-import { Category } from '../types/Directory';
+import { Category } from '../types/categories';
 
 const CategoryData: Array<Category> = [
     {
