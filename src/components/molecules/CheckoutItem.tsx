@@ -14,7 +14,7 @@ const CheckoutItem: React.FC<{ product: AddedProduct }> = ({ product }) => {
             </div>
             <span className="name">{name}</span>
             <span className="quantity">
-                <div className="arrow" onClick={() => removeProduct(product)}>
+                <div className="arrow" onClick={() => removeProduct(product, false)}>
                     &#10094;
                 </div>
                 <span className="value">{quantity}</span>
